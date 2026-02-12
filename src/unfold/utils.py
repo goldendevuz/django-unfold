@@ -8,6 +8,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Model
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
 from django.utils import formats, timezone
 from django.utils.hashable import make_hashable
 from django.utils.html import format_html
@@ -21,6 +22,10 @@ try:
 except ImportError:
     MoneyField: type[MoneyField] | None = None
     Money: type[Money] | None = None
+
+
+def get_reverse_link(app_name, model_name):
+    return reverse_lazy(f"admin:{app_name}_{model_name}_changelist")
 
 
 def _boolean_icon(field_val: Any) -> str:
